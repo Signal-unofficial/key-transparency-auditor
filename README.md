@@ -11,14 +11,15 @@ This service is written in Java using the [Micronaut](https://docs.micronaut.io/
 ```shell
 ./mvnw clean test
 ```
+
 in the root directory.
 
 The main class is the [`Auditor`](./src/main/java/org/signal/keytransparency/audit/Auditor.java), which runs a scheduled job that requests a
 stream of updates from the key transparency service. It maintains a condensed view of the key transparency service's [prefix tree](https://bren2010.github.io/draft-key-transparency/draft-mcmillion-key-transparency.html#name-prefix-tree)
 and [log tree](https://bren2010.github.io/draft-key-transparency/draft-mcmillion-key-transparency.html#name-log-tree),
-storing just enough information to verify and accept each update sequentially. If the auditor has processed a certain number of updates or a certain amount of time has elapsed, the auditor sends back a 
+storing just enough information to verify and accept each update sequentially. If the auditor has processed a certain number of updates or a certain amount of time has elapsed, the auditor sends back a
 [signed tree head](https://bren2010.github.io/draft-key-transparency/draft-mcmillion-key-transparency.html#name-tree-head-signature)
-to the key transparency service, indicating that its view of the prefix and log trees up to the given update matches. 
+to the key transparency service, indicating that its view of the prefix and log trees up to the given update matches.
 If the remote call succeeds, the auditor writes its state data to an [`AuditorStateRepository`](./src/main/java/org/signal/keytransparency/audit/storage/AuditorStateRepository.java),
 which it may use to resume from its most recent position in the key transparency log if the auditor is restarted.
 
@@ -30,7 +31,6 @@ Configuration
 
 The service needs `Auditor`, `KeyTransparencyServiceClient`, and `AuditorStateRepository` beans to run.
 The table below describes the [configuration](https://docs.micronaut.io/latest/guide/#configurationProperties) [properties](https://docs.micronaut.io/latest/guide/#valueAnnotation) necessary to instantiate those beans.
-
 
 | Property                                              | Required?                                      | Description                                                                                                                                                                                                                                                                                 |
 |-------------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -53,7 +53,7 @@ The table below describes the [configuration](https://docs.micronaut.io/latest/g
 Contributing bug reports
 ------------------------
 
-We use [GitHub][github issues] for bug tracking. Security issues should be sent to <a href="mailto:security@signal.org">security@signal.org</a>.
+We use [GitHub][github issues] for bug tracking. Security issues should be sent to [security@signal.org](mailto:security@signal.org).
 
 Help
 ----
@@ -65,8 +65,7 @@ License
 
 Copyright 2025 Signal Messenger, LLC
 
-Licensed under the AGPLv3: https://www.gnu.org/licenses/agpl-3.0.html
-
+Licensed under the AGPLv3: <https://www.gnu.org/licenses/agpl-3.0.html>
 
 [github issues]: https://github.com/signalapp/key-transparency-auditor/issues
 [community forum]: https://community.signalusers.org
