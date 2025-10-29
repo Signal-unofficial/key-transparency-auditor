@@ -1,0 +1,7 @@
+name: 'kt-auditor'
+services:
+  'auditor':
+    build:
+      context: '.'
+      dockerfile: './Dockerfile'
+      target: 'run-auditor'
