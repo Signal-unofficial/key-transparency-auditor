@@ -1,5 +1,13 @@
 ARG JDK_VERSION=eclipse-temurin@sha256:24a8854594eea72c16822953e6cb96c78d10fc3c77b7b8a60ce8e5ac440a2337
 
+# Generates auditor public/private key pair
+FROM ${JDK_VERSION} AS gen-auditor-keys
+
+WORKDIR /app/
+COPY --link [ "./docker/gen_auditor_keys.sh", "./" ]
+
+ENTRYPOINT [ "/app/gen_auditor_keys.sh" ]
+
 # Copying legal notices, for final build stages
 FROM scratch AS notices
 

@@ -1,6 +1,15 @@
 name: 'kt-auditor'
 services:
+  'gen-auditor-keys':
+    profiles:
+      - 'gen-auditor-keys'
+    build:
+      context: '.'
+      dockerfile: './Dockerfile'
+      target: 'gen-auditor-keys'
   'auditor':
+    profiles:
+      - 'auditor'
     build:
       context: '.'
       dockerfile: './Dockerfile'

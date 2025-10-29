@@ -1,3 +1,4 @@
+# Git
 Thumbs.db
 .DS_Store
 .gradle
@@ -16,8 +17,15 @@ out/
 .mvn/wrapper/maven-wrapper.jar
 .idea
 .vscode
+secrets/
+**/*.pem
+**/temp
+**/tmp
 
+# Docker
 **/*.cmd
 **/*.bat
 **/*.ps1
 .github
+.gitignore
+.editorconfig
