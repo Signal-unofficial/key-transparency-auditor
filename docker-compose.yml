@@ -11,9 +11,6 @@ services:
   'auditor':
     profiles:
       - 'auditor'
-    # Should be linked to the kt-server:
-    # links:
-    #   - 'server'
     build:
       context: '.'
       dockerfile: './Dockerfile'
@@ -27,8 +24,15 @@ services:
     secrets:
       - source: 'auditor'
         target: '/run/secrets/'
+    networks:
+      'kt-auditor':
 volumes:
   'state':
 secrets:
   'auditor':
     file: './config/'
+networks:
+  'kt-auditor':
+    name: 'kt-server'
+    # Network is created by kt-server
+    external: true
