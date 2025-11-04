@@ -16,8 +16,8 @@ out/
 .mvn/wrapper/maven-wrapper.jar
 .idea
 .vscode
-secrets/**
-!secrets/example_secrets.yml
+config/**
+!config/example_config.yml
 **/*.pem
 **/temp
 **/tmp

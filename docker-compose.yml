@@ -1,16 +1,34 @@
 name: 'kt-auditor'
 services:
-  'gen-auditor-keys':
+  'generate-keys':
     profiles:
-      - 'gen-auditor-keys'
+      - 'generate-keys'
     build:
       context: '.'
       dockerfile: './Dockerfile'
-      target: 'gen-auditor-keys'
+      target: 'generate-keys'
+    # command: [ "-days", "365" ]
   'auditor':
     profiles:
       - 'auditor'
+    # Should be linked to the kt-server:
+    # links:
+    #   - 'server'
     build:
       context: '.'
       dockerfile: './Dockerfile'
       target: 'run-auditor'
+    environment:
+      - MICRONAUT_CONFIG_FILES=/run/secrets/config.yml
+    volumes:
+      - type: 'volume'
+        source: 'state'
+        target: '/db/'
+    secrets:
+      - source: 'auditor'
+        target: '/run/secrets/'
+volumes:
+  'state':
+secrets:
+  'auditor':
+    file: './config/'
