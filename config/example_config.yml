@@ -1,3 +1,7 @@
+# ==============================================================================
+# ============= DO NOT USE THESE EXAMPLE CREDENTIALS IN PRODUCTION =============
+# ==============================================================================
+
 micronaut:
   application:
     name: key-transparency-auditor
