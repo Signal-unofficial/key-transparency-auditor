@@ -1,12 +1,16 @@
 ARG JDK_VERSION=eclipse-temurin@sha256:24a8854594eea72c16822953e6cb96c78d10fc3c77b7b8a60ce8e5ac440a2337
 ARG ALPINE_VERSION=alpine:latest
 
-# Generates auditor public/private key pair
-FROM ${ALPINE_VERSION} AS generate-keys
+FROM ${ALPINE_VERSION} AS openssl
 
 RUN \
     apk update \
     && apk add --no-cache openssl
+
+ENTRYPOINT [ "sh" ]
+
+# Generates auditor public/private key pair
+FROM openssl AS generate-keys
 
 WORKDIR /app/
 COPY --link [ "./docker/generate_keys.sh", "./" ]

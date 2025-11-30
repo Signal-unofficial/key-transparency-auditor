@@ -26,6 +26,16 @@ services:
         target: '/run/secrets/'
     networks:
       'kt-auditor':
+  'openssl':
+    profiles:
+      - 'debug-tls'
+    build:
+      context: '.'
+      dockerfile: './Dockerfile'
+      target: 'openssl'
+    tty: true
+    networks:
+      'kt-auditor':
 volumes:
   'state':
 secrets:
