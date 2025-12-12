@@ -1,7 +1,8 @@
 #!/bin/sh
 
-stripPublicPem() {
-    sed '/-----BEGIN PUBLIC KEY-----/d' | sed '/-----END PUBLIC KEY-----/d'
+stripPublicPemFile() {
+    file="$1"
+    sed '/-----BEGIN PUBLIC KEY-----/d' "${file}" | sed '/-----END PUBLIC KEY-----/d'
 }
 
 stripPrivatePemFile() {
@@ -13,7 +14,7 @@ stripEd25519PublicDer() {
     sed '/ED25519 Public-Key:/d' | sed '/pub:/d' | tr -d ' '
 }
 
-indentCat() {
+indentFile() {
     file="$1"
     sed 's/^/  /' "${file}"
 }
@@ -33,7 +34,7 @@ openssl genpkey -quiet -algorithm Ed25519 -out 'private.pem'
 openssl pkey -in 'private.pem' -pubout -out 'public.pem'
 
 # Encoding public keys
-publicPem="$(cat 'public.pem' | stripPublicPem)"
+publicPem="$(stripPublicPemFile 'public.pem')"
 publicEncoded="$(openssl pkey -pubin -inform pem -in public.pem -noout -text | stripEd25519PublicDer | tr -d ':\n')"
 
 # Printing YAML-formatted keys
@@ -43,9 +44,9 @@ printf "private-key: "
 stripPrivatePemFile 'private.pem'
 echo "public-key: ${publicPem}"
 echo 'client-private-key: |'
-indentCat 'certkey.pem'
+indentFile 'certkey.pem'
 echo 'client-certificate: |'
-indentCat 'certificate.crt'
+indentFile 'certificate.crt'
 echo
 echo "# kt-server"
 echo "your-auditor-name-here: ${publicEncoded}"
